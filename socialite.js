@@ -501,23 +501,27 @@ window.Socialite = (function(window, document, undefined)
         },
         append: function(network)
         {
-            var fb       = document.createElement('div'),
-                settings = Socialite.settings.facebook,
-                events   = { onlike: 'edge.create', onunlike: 'edge.remove', onsend: 'message.send' };
-            fb.id = 'fb-root';
-            document.body.appendChild(fb);
-            network.script.src = network.script.src.replace('{{language}}', settings.lang);
-            window.fbAsyncInit = function() {
-                window.FB.init({
-                      appId: settings.appId,
-                      xfbml: true
-                });
-                for (var e in events) {
-                    if (typeof settings[e] === 'function') {
-                        window.FB.Event.subscribe(events[e], settings[e]);
-                    }
-                }
-            };
+            // Facebook is loaded within the app
+            network.script.src = network.script.src.replace('{{language}}', Socialite.settings.facebook.lang);
+
+            // Uncomment below to revert to original
+            // var fb       = document.createElement('div'),
+            //     settings = Socialite.settings.facebook,
+            //     events   = { onlike: 'edge.create', onunlike: 'edge.remove', onsend: 'message.send' };
+            // fb.id = 'fb-root';
+            // document.body.appendChild(fb);
+            // network.script.src = network.script.src.replace('{{language}}', settings.lang);
+            // window.fbAsyncInit = function() {
+            //     window.FB.init({
+            //           appId: settings.appId,
+            //           xfbml: true
+            //     });
+            //     for (var e in events) {
+            //         if (typeof settings[e] === 'function') {
+            //             window.FB.Event.subscribe(events[e], settings[e]);
+            //         }
+            //     }
+            // };
         }
     });
 
